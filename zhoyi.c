@@ -5,6 +5,16 @@
 
 #define LINE 8
 #define SLIM 8
+//编写外应卦处理函数
+int outpreview(int out){
+	int out;
+	int rez;
+	rez=out%8;
+	return rez;
+
+}
+
+
 int main(void){
 	bool in_mind [LINE] [SLIM]={false};
 	int year,month,day;
@@ -17,7 +27,7 @@ int main(void){
 	num_up=(year+month+day)%LINE;
 	num_down=(year+month+day+rand())%SLIM;
 	printf("你的挂是：%c%c\n",upgua[num_up],downgua[num_down]);
-	
+	printf("n
 	return 0;
 }
 
