@@ -20,7 +20,7 @@ int main(void){
 }
 void quicksort(int num[],int low,int high){
     int middiem;
-    if(low>=high) return;
+    if(low>=high) return;//函数递归的截止条件
     middiem=compare(num,low,high);
     quicksort(num,low,middiem-1);  
     quicksort(num,middiem+1,high);
