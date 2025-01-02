@@ -22,7 +22,8 @@ link sheetExtend(link head){
     if(x==NULL){
          printf("Error! Memory allocation fail!\n"); 
          return NULL;
-    }   
+    }
+    x->ID = 0;  // Initialize ID
     y=head->next;
     head->next=x;
     x->next=y;
@@ -32,25 +33,31 @@ link sheetExtend(link head){
 
 //节点删除函数
 void deleteNext(link head,link TargetNode){
-     link temp;
-
-   while (head->next!=TargetNode)
-   {
+    if(head == NULL || TargetNode == NULL) return;
+    
+    link temp;
+    while (head->next!=TargetNode)
+    {
         head=head->next;
-   }
-   
-   temp=TargetNode->next;
-   head->next=temp;
-   free(TargetNode);
+    }
+    
+    temp=TargetNode->next;
+    head->next=temp;
+    free(TargetNode);
 }
 
 //约瑟夫函数
 link josephFunction(link head,int interval){
-   link deleteTarget=head;
-   link temp;
+    if(interval <= 0) {
+        printf("Invalid interval! Must be positive integer.\n");
+        return NULL;
+    }
+    
+    link deleteTarget=head;
+    link temp;
 
-   while (head->next!=head)
-   {
+    while (head->next!=head)
+    {
         for(int i=1;i<interval;i++){
             deleteTarget=deleteTarget->next;
         }
@@ -59,10 +66,9 @@ link josephFunction(link head,int interval){
         temp=deleteTarget->next;
         deleteNext(head,deleteTarget);
         deleteTarget=temp;
-   }
-   
-   return deleteTarget;
-   
+    }
+    
+    return deleteTarget;
 }
 
 int main(void){
@@ -98,8 +104,14 @@ int main(void){
     //调用约瑟夫函数
     result=josephFunction(head,interval);
 
-    printf("Finally,the Prsident is %d",result->ID);
+    if(result != NULL) {
+        printf("Finally,the President is %d\n",result->ID);
+    }
 
+    // Free remaining memory
+    if(head != NULL) {
+        free(head);
+    }
     return 0;
 
 
